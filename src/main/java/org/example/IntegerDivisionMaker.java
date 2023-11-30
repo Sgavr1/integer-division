@@ -1,74 +1,63 @@
 package org.example;
 
 public class IntegerDivisionMaker {
-    public int division(Integer divisor, Integer dividend) {
+    public IntegerDivisorData division(int divisor, int dividend) {
         if (divisor == 0 || dividend == 0) {
-            throw new ArithmeticException();
+            throw new ArithmeticException("Divisor on zero");
         }
 
-        if(divisor<dividend){
-            return 0;
+        IntegerDivisorData data = new IntegerDivisorData();
+        data.setDivisor(divisor);
+        data.setDividend(dividend);
+        data.setQuotient(0);
+
+        if (divisor < dividend) {
+            data.setRemainder(divisor);
+
+            return data;
         }
 
-        Integer quotient = divisor/dividend;
+        int countDigitDivisor = (int) Math.log10(Math.abs(divisor));
 
-        char[] quotientChars = quotient.toString().toCharArray();
-        char[] divisorChars = divisor.toString().toCharArray();
+        int[] digits = new int[countDigitDivisor+1];
 
-        Integer product = Integer.parseInt(quotientChars[0]+"") * dividend;
+        int temp = divisor;
 
-        int lengthDivisor = divisor.toString().length();
-        int lengthDividend = dividend.toString().length();
-        int lengthQuotient = quotientChars.length;
-        int lengthProduct = product.toString().length();
+        for (int i = 0; i < digits.length-1; i++, countDigitDivisor--) {
+            int tenPow = (int) Math.pow(10, countDigitDivisor);
+            digits[i] = temp / tenPow;
+            temp %= tenPow;
+        }
 
-        String differenceString = "";
-        int lastIndexFigure = 0;
+        digits[digits.length - 1] = divisor % 10;
 
-        for (;lastIndexFigure<lengthDivisor; lastIndexFigure++) {
-            differenceString += divisorChars[lastIndexFigure];
+        int minuend = 0;
+        int multiple , subtrahend, different;
 
-            if (Integer.parseInt(differenceString) > product){
-                differenceString = Integer.toString(Integer.parseInt(differenceString) - product);
-                lastIndexFigure++;
-                break;
+        for (int i = 0; i < digits.length; i++) {
+            minuend = minuend * 10 + digits[i];
+            if (minuend >= dividend) {
+                multiple = minuend / dividend;
+                subtrahend = dividend * multiple;
+                different = minuend - subtrahend;
+
+                data.getItemDivisions().add(new ItemDivisor(minuend,subtrahend,different));
+
+                minuend  = different;
+
+                data.setQuotient(data.getQuotient() * 10 + multiple);
+            } else if (minuend == 0) {
+                data.getItemDivisions().add(new ItemDivisor(0,0,0));
+                data.setQuotient(data.getQuotient() * 10);
             }
         }
 
-        int lengthLine = lengthDivisor + 2;
-        lengthLine += lengthDividend < lengthQuotient ? lengthQuotient : lengthDividend;
+        data.setRemainder(minuend);
 
-        System.out.println("_"+divisor+"|"+dividend);
-        System.out.println(" " + product + " ".repeat(lengthDivisor-lengthProduct) + "|" + "-".repeat(lengthLine-lengthDivisor-2));
-        System.out.println(" " + "-".repeat(lengthProduct) + " ".repeat(lengthDivisor-lengthProduct) + "|" + String.valueOf(quotientChars));
-
-        for (int i = 1; i<lengthQuotient; i++) {
-            int padding = lastIndexFigure - differenceString.length();
-
-            product = Integer.parseInt(quotientChars[i]+"") * dividend;
-
-            for (;lastIndexFigure<lengthDivisor; lastIndexFigure++) {
-                differenceString += divisorChars[lastIndexFigure];
-
-                if (Integer.parseInt(differenceString) > product){
-                    lastIndexFigure++;
-                    break;
-                }
-            }
-
-            System.out.println(" ".repeat(padding) + "_" + differenceString);
-
-            differenceString = Integer.toString(Integer.parseInt(differenceString) - product);
-
-            System.out.println(" ".repeat(padding+1) + product);
-            System.out.println(" ".repeat(padding+1) + "-".repeat(product.toString().length()));
-
+        if ((divisor > 0 && dividend < 0) || (divisor < 0 && dividend > 0)) {
+            data.setQuotient(-data.getQuotient());
         }
 
-        Integer remainder = divisor%dividend;
-
-        System.out.println(" ".repeat(lengthDivisor-remainder.toString().length()+1) + remainder);
-
-        return quotient;
+        return data;
     }
 }

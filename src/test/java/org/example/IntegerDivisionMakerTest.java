@@ -22,19 +22,45 @@ public class IntegerDivisionMakerTest {
     public void shouldReturnZeroWhenDivisionLessDividend(){
         IntegerDivisionMaker integerDivisionMaker = new IntegerDivisionMaker();
 
-        assertEquals(0, integerDivisionMaker.division(15,16));
+        IntegerDivisorData data = new IntegerDivisorData();
+
+        data.setDivisor(100);
+        data.setDividend(101);
+        data.setQuotient(0);
+        data.setRemainder(100);
+
+        assertEquals(data, integerDivisionMaker.division(100,101));
     }
 
     @Test
     public void shouldReturnFiveWhenDivision125Dividend25(){
         IntegerDivisionMaker integerDivisionMaker = new IntegerDivisionMaker();
 
-        assertEquals(5,integerDivisionMaker.division(125,25));
+        IntegerDivisorData data = new IntegerDivisorData();
+
+        data.setDivisor(125);
+        data.setDividend(25);
+        data.setQuotient(5);
+        data.setRemainder(0);
+
+        data.getItemDivisions().add(new ItemDivisor(125,125,0));
+
+        assertEquals(data, integerDivisionMaker.division(125,25));
     }
 
+    @Test
     public void shouldReturnEightWhenDivision128Dividend16(){
         IntegerDivisionMaker integerDivisionMaker = new IntegerDivisionMaker();
 
-        assertEquals(8, integerDivisionMaker.division(128,8));
+        IntegerDivisorData data = new IntegerDivisorData();
+
+        data.setDivisor(128);
+        data.setDividend(16);
+        data.setQuotient(8);
+        data.setRemainder(0);
+
+        data.getItemDivisions().add(new ItemDivisor(128,128,0));
+
+        assertEquals(data, integerDivisionMaker.division(128,16));
     }
 }

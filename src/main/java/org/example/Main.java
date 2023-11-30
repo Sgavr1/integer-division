@@ -5,12 +5,13 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         IntegerDivisionMaker integerDivisionMaker = new IntegerDivisionMaker();
+        PrintDataIntegerDivisor printData = new PrintDataIntegerDivisor();
 
         Scanner scanner = new Scanner(System.in);
 
-        int division = scanner.nextInt();
+        int divisor = scanner.nextInt();
         int dividend = scanner.nextInt();
 
-        integerDivisionMaker.division(division,dividend);
+        printData.print(integerDivisionMaker.division(divisor,dividend));
     }
 }
