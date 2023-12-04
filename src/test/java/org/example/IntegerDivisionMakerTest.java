@@ -10,16 +10,16 @@ public class IntegerDivisionMakerTest {
 
     @ParameterizedTest
     @CsvSource({"0,15", "15,0"})
-    public void shouldThrowArithmeticExceptionIfDivisionOrDividendEquals0(int division, int dividend){
+    public void shouldThrowArithmeticExceptionIfDivisionOrDividendEquals0(int division, int dividend) {
         IntegerDivisionMaker integerDivisionMaker = new IntegerDivisionMaker();
 
-        assertThrows(ArithmeticException.class, ()->{
+        assertThrows(ArithmeticException.class, ()-> {
             integerDivisionMaker.division(division,dividend);
         });
     }
 
     @Test
-    public void shouldReturnZeroWhenDivisionLessDividend(){
+    public void shouldReturnZeroWhenDivisionLessDividend() {
         IntegerDivisionMaker integerDivisionMaker = new IntegerDivisionMaker();
 
         IntegerDivisorData data = new IntegerDivisorData();
@@ -33,7 +33,7 @@ public class IntegerDivisionMakerTest {
     }
 
     @Test
-    public void shouldReturnFiveWhenDivision125Dividend25(){
+    public void shouldReturnFiveWhenDivision125Dividend25() {
         IntegerDivisionMaker integerDivisionMaker = new IntegerDivisionMaker();
 
         IntegerDivisorData data = new IntegerDivisorData();
@@ -43,13 +43,13 @@ public class IntegerDivisionMakerTest {
         data.setQuotient(5);
         data.setRemainder(0);
 
-        data.getItemDivisions().add(new ItemDivisor(125,125,0));
+        data.getItemDivisions().add(new StepDivisor(125,125,0));
 
         assertEquals(data, integerDivisionMaker.division(125,25));
     }
 
     @Test
-    public void shouldReturnEightWhenDivision128Dividend16(){
+    public void shouldReturnEightWhenDivision128Dividend16() {
         IntegerDivisionMaker integerDivisionMaker = new IntegerDivisionMaker();
 
         IntegerDivisorData data = new IntegerDivisorData();
@@ -59,7 +59,7 @@ public class IntegerDivisionMakerTest {
         data.setQuotient(8);
         data.setRemainder(0);
 
-        data.getItemDivisions().add(new ItemDivisor(128,128,0));
+        data.getItemDivisions().add(new StepDivisor(128,128,0));
 
         assertEquals(data, integerDivisionMaker.division(128,16));
     }

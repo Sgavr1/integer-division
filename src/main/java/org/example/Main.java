@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         IntegerDivisionMaker integerDivisionMaker = new IntegerDivisionMaker();
-        PrintDataIntegerDivisor printData = new PrintDataIntegerDivisor();
+        DataIntegerDivisionPrinter printData = new DataIntegerDivisionPrinter();
 
         Scanner scanner = new Scanner(System.in);
 
@@ -13,5 +13,6 @@ public class Main {
         int dividend = scanner.nextInt();
 
         printData.print(integerDivisionMaker.division(divisor,dividend));
+
     }
 }

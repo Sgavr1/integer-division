@@ -1,11 +1,11 @@
 package org.example;
 
-public class ItemDivisor {
+public class StepDivisor {
     private int minuend;
     private int subtrahend;
     private int difference;
 
-    public ItemDivisor(int minuend, int subtrahend, int difference) {
+    public StepDivisor(int minuend, int subtrahend, int difference) {
         this.minuend = minuend;
         this.subtrahend = subtrahend;
         this.difference = difference;
@@ -26,7 +26,7 @@ public class ItemDivisor {
 
     @Override
     public boolean equals(Object obj) {
-        ItemDivisor itemDivisor = (ItemDivisor) obj;
+        StepDivisor itemDivisor = (StepDivisor) obj;
 
         if (this.minuend == itemDivisor.getMinuend() && this.subtrahend == itemDivisor.getSubtrahend() && this.difference == itemDivisor.getDifference()) {
             return true;

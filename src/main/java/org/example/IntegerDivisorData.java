@@ -1,10 +1,11 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class IntegerDivisorData {
 
-    private ArrayList<ItemDivisor> itemDivisions;
+    private List<StepDivisor> itemDivisions;
     private int divisor;
     private int dividend;
     private int remainder;
@@ -16,28 +17,22 @@ public class IntegerDivisorData {
     }
 
     public void setDivisor(int divisor) {
-        if (divisor != 0) {
-            this.divisor = divisor;
-        }
+        this.divisor = divisor;
     }
 
     public void setDividend(int dividend) {
-        if (dividend != 0) {
-            this.dividend = dividend;
-        }
+        this.dividend = dividend;
     }
 
     public void setRemainder(int remainder) {
-        if (remainder > -1) {
-            this.remainder = remainder;
-        }
+        this.remainder = remainder;
     }
 
     public void setQuotient(int quotient) {
         this.quotient = quotient;
     }
 
-    public ArrayList<ItemDivisor> getItemDivisions() {
+    public List<StepDivisor> getItemDivisions() {
         return itemDivisions;
     }
 
