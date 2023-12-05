@@ -1,7 +1,7 @@
 package org.example;
 
 public class IntegerDivisionMaker {
-    public IntegerDivisorData division(int divisor, int dividend) {
+    public IntegerDivisorData make(int divisor, int dividend) {
         if (divisor == 0 || dividend == 0) {
             throw new ArithmeticException("Divisor on zero");
         }

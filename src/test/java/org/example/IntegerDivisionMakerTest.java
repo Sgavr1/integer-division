@@ -14,7 +14,7 @@ public class IntegerDivisionMakerTest {
         IntegerDivisionMaker integerDivisionMaker = new IntegerDivisionMaker();
 
         assertThrows(ArithmeticException.class, ()-> {
-            integerDivisionMaker.division(division,dividend);
+            integerDivisionMaker.make(division,dividend);
         });
     }
 
@@ -22,45 +22,30 @@ public class IntegerDivisionMakerTest {
     public void shouldReturnZeroWhenDivisionLessDividend() {
         IntegerDivisionMaker integerDivisionMaker = new IntegerDivisionMaker();
 
-        IntegerDivisorData data = new IntegerDivisorData();
+        IntegerDivisorData data = integerDivisionMaker.make(15,100);
 
-        data.setDivisor(100);
-        data.setDividend(101);
-        data.setQuotient(0);
-        data.setRemainder(100);
-
-        assertEquals(data, integerDivisionMaker.division(100,101));
+        assertEquals(15, data.getDivisor());
+        assertEquals(100, data.getDividend());
+        assertEquals(0, data.getQuotient());
+        assertEquals(15, data.getRemainder());
     }
 
-    @Test
-    public void shouldReturnFiveWhenDivision125Dividend25() {
+    @ParameterizedTest
+    @CsvSource({"125, 25, 5, 0, 125, 125, 0" , "128, 16, 8, 0, 128, 128, 0"})
+    public void shouldReturnCorrectDivisionWhenCorrectDivisionAndDividend(int divisor, int dividend, int quotient, int remainder, int minuend, int subtrahend, int difference) {
         IntegerDivisionMaker integerDivisionMaker = new IntegerDivisionMaker();
 
-        IntegerDivisorData data = new IntegerDivisorData();
+        IntegerDivisorData data = integerDivisionMaker.make(divisor,dividend);
 
-        data.setDivisor(125);
-        data.setDividend(25);
-        data.setQuotient(5);
-        data.setRemainder(0);
+        assertEquals(divisor, data.getDivisor());
+        assertEquals(dividend, data.getDividend());
+        assertEquals(quotient, data.getQuotient());
+        assertEquals(remainder, data.getRemainder());
 
-        data.getItemDivisions().add(new StepDivisor(125,125,0));
+        StepDivisor stepDivisor = data.getItemDivisions().get(0);
 
-        assertEquals(data, integerDivisionMaker.division(125,25));
-    }
-
-    @Test
-    public void shouldReturnEightWhenDivision128Dividend16() {
-        IntegerDivisionMaker integerDivisionMaker = new IntegerDivisionMaker();
-
-        IntegerDivisorData data = new IntegerDivisorData();
-
-        data.setDivisor(128);
-        data.setDividend(16);
-        data.setQuotient(8);
-        data.setRemainder(0);
-
-        data.getItemDivisions().add(new StepDivisor(128,128,0));
-
-        assertEquals(data, integerDivisionMaker.division(128,16));
+        assertEquals(minuend, stepDivisor.getMinuend());
+        assertEquals(subtrahend, stepDivisor.getSubtrahend());
+        assertEquals(difference, stepDivisor.getDifference());
     }
 }
